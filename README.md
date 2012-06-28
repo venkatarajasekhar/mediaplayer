@@ -1,2 +1,1 @@
-mediaplayer
-===========
+realtek 1073DD based media player kernel and application repository.
