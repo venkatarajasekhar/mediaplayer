@@ -1,0 +1,36 @@
+INCLUDE(../../../../../include/config.txt)
+
+SET(MYDEFS )
+SET(rm " /bin/rm -f")
+SET(cp " /bin/cp -f")
+SET(CC " ${MYCXX}")
+SET(AR " ${MYAR} cq")
+SET(RANLIB " ${MYRANLIB}")
+
+SET(PROGRAM rtksmb)
+
+SET(INCLUDES  ${INCLUDES} " ${CMAKE_CURRENT_SOURCE_DIR}/../../../../Include/")
+
+SET(CFLAGS " -DSYS_UNIX=1 ${MYDEFS} -ggdb -D_REENTRANT -static")
+SET(SRCS rtksmb.cpp)
+
+SET(OBJS rtksmb.o)
+
+SET(LIB_DIRS ${LIB_DIRS} ../../../../../lib_release/)
+SET(LIB_DIRS ${LIB_DIRS}  ../../../../../lib)
+SET(LIBS  ${LIBS} Samba${TOOLCHAIN_VER})
+SET(LIBS  ${LIBS} ini)
+message(${CFLAGS})
+
+INCLUDE_DIRECTORIES(${INCLUDES})
+LINK_DIRECTORIES(${LIB_DIRS})
+ADD_DEFINITIONS(${CFLAGS} ${DEBUGFLAG} ${WARNING})
+ADD_EXECUTABLE(${PROGRAM} ${SRCS})
+TARGET_LINK_LIBRARIES(${PROGRAM} ${LIBS})
+
+string(REGEX REPLACE  ";" " " APCFG_DVR  ${APCFG_DVR})
+string(REGEX REPLACE  ";" " " CHIP_MODEL_DEFS ${CHIP_MODEL_DEFS})
+string(REGEX REPLACE  ";" " " APCFG_DEFS ${APCFG_DEFS})
+#string(REGEX REPLACE  ";" " " BUILD_OPTIONS ${BUILD_OPTIONS})
+string(REGEX REPLACE  ";" " " DEFINES ${DEFINES})
+string(REGEX REPLACE  ";" " " APCFG_FLAGS ${APCFG_FLAGS})

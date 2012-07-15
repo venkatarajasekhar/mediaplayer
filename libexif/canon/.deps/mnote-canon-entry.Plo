@@ -1,0 +1,91 @@
+mnote-canon-entry.lo : \
+ mnote-canon-entry.c ../../config.h \
+  mnote-canon-entry.h ../../libexif/exif-format.h \
+  ../../libexif/exif-byte-order.h ../../libexif/canon/mnote-canon-tag.h \
+  ../../libexif/exif-data.h ../../libexif/exif-data-type.h \
+  ../../libexif/exif-ifd.h ../../libexif/exif-log.h \
+  ../../libexif/exif-mem.h ../../libexif/exif-utils.h \
+  ../../libexif/_stdint.h /usr/local/mipsel-linux/include/stdint.h \
+  /usr/local/mipsel-linux/include/features.h \
+  /usr/local/mipsel-linux/include/bits/uClibc_config.h \
+  /usr/local/mipsel-linux/include/sys/cdefs.h \
+  /usr/local/mipsel-linux/include/bits/wchar.h \
+  /usr/local/mipsel-linux/include/bits/wordsize.h \
+  /usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stdarg.h \
+  ../../libexif/exif-tag.h ../../libexif/exif-content.h \
+  ../../libexif/exif-entry.h ../../libexif/exif-mnote-data.h \
+  /usr/local/mipsel-linux/include/stdio.h \
+  /usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stddef.h \
+  /usr/local/mipsel-linux/include/bits/types.h \
+  /usr/local/mipsel-linux/include/bits/kernel_types.h \
+  /usr/local/mipsel-linux/include/bits/pthreadtypes.h \
+  /usr/local/mipsel-linux/include/bits/sched.h \
+  /usr/local/mipsel-linux/include/bits/uClibc_stdio.h \
+  /usr/local/mipsel-linux/include/wchar.h \
+  /usr/local/mipsel-linux/include/bits/stdio_lim.h \
+  /usr/local/mipsel-linux/include/stdlib.h \
+  /usr/local/mipsel-linux/include/sys/types.h \
+  /usr/local/mipsel-linux/include/time.h \
+  /usr/local/mipsel-linux/include/endian.h \
+  /usr/local/mipsel-linux/include/bits/endian.h \
+  /usr/local/mipsel-linux/include/sys/select.h \
+  /usr/local/mipsel-linux/include/bits/select.h \
+  /usr/local/mipsel-linux/include/bits/sigset.h \
+  /usr/local/mipsel-linux/include/bits/time.h \
+  /usr/local/mipsel-linux/include/sys/sysmacros.h \
+  /usr/local/mipsel-linux/include/alloca.h \
+  /usr/local/mipsel-linux/include/string.h \
+  /usr/local/mipsel-linux/include/math.h \
+  /usr/local/mipsel-linux/include/bits/huge_val.h \
+  /usr/local/mipsel-linux/include/bits/mathdef.h \
+  /usr/local/mipsel-linux/include/bits/mathcalls.h ../../libexif/i18n.h
+mnote-canon-entry.c :
+../../config.h :
+mnote-canon-entry.h :
+../../libexif/exif-format.h :
+../../libexif/exif-byte-order.h :
+../../libexif/canon/mnote-canon-tag.h :
+../../libexif/exif-data.h :
+../../libexif/exif-data-type.h :
+../../libexif/exif-ifd.h :
+../../libexif/exif-log.h :
+../../libexif/exif-mem.h :
+../../libexif/exif-utils.h :
+../../libexif/_stdint.h :
+/usr/local/mipsel-linux/include/stdint.h :
+/usr/local/mipsel-linux/include/features.h :
+/usr/local/mipsel-linux/include/bits/uClibc_config.h :
+/usr/local/mipsel-linux/include/sys/cdefs.h :
+/usr/local/mipsel-linux/include/bits/wchar.h :
+/usr/local/mipsel-linux/include/bits/wordsize.h :
+/usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stdarg.h :
+../../libexif/exif-tag.h :
+../../libexif/exif-content.h :
+../../libexif/exif-entry.h :
+../../libexif/exif-mnote-data.h :
+/usr/local/mipsel-linux/include/stdio.h :
+/usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stddef.h :
+/usr/local/mipsel-linux/include/bits/types.h :
+/usr/local/mipsel-linux/include/bits/kernel_types.h :
+/usr/local/mipsel-linux/include/bits/pthreadtypes.h :
+/usr/local/mipsel-linux/include/bits/sched.h :
+/usr/local/mipsel-linux/include/bits/uClibc_stdio.h :
+/usr/local/mipsel-linux/include/wchar.h :
+/usr/local/mipsel-linux/include/bits/stdio_lim.h :
+/usr/local/mipsel-linux/include/stdlib.h :
+/usr/local/mipsel-linux/include/sys/types.h :
+/usr/local/mipsel-linux/include/time.h :
+/usr/local/mipsel-linux/include/endian.h :
+/usr/local/mipsel-linux/include/bits/endian.h :
+/usr/local/mipsel-linux/include/sys/select.h :
+/usr/local/mipsel-linux/include/bits/select.h :
+/usr/local/mipsel-linux/include/bits/sigset.h :
+/usr/local/mipsel-linux/include/bits/time.h :
+/usr/local/mipsel-linux/include/sys/sysmacros.h :
+/usr/local/mipsel-linux/include/alloca.h :
+/usr/local/mipsel-linux/include/string.h :
+/usr/local/mipsel-linux/include/math.h :
+/usr/local/mipsel-linux/include/bits/huge_val.h :
+/usr/local/mipsel-linux/include/bits/mathdef.h :
+/usr/local/mipsel-linux/include/bits/mathcalls.h :
+../../libexif/i18n.h :

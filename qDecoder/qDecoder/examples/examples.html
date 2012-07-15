@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-------------------------------------------------------------->
+<!-- The qDecoder Project             http://www.qDecoder.org -->
+<!--                                   ftp://ftp.qDecoder.org -->
+<!--                                                          -->
+<!--         Copyright (C) 2001 The qDecoder Project.         -->
+<!--         Copyright (C) 1999 Hongik Internet, Inc.         -->
+<!--         Copyright (C) 1998 Nobreak Technologies, Inc.    -->
+<!--         Copyright (C) 1996,1997 Seung-young Kim          -->
+<!-------------------------------------------------------------->
+
+<html>
+<head>
+  <title>The qDecoder Project: qDecoder Examples</title>
+</head>
+
+<body>
+<p><h1>qDecoder Examples</h1>
+<i>
+The qDecoder Project - Web Application Interface for C/C++
+<br><a href="http://www.qDecoder.org">http://www.qDecoder.org</a>
+
+<p><blockquote>
+Being a Web Application Interface for C/C++ use, qDecoder is a solution product for developers.
+The Query Fetch algorithm of qDecoder based on the linked-list provides transparency
+with low layers by the simple library interface regardless of COOKIE/GET/POST(including File Upload).
+Thus, it enables the web based software to be more intuitively designed and implemented.
+qDecoder is developed according to the <a href="http://www.gnu.org/philosophy/free-software-for-freedom.html">free software</a> model and is publicly distributed.
+</blockquote>
+
+<p>It is only communication for qDecoder developers that is a qDecoder
+mailing list. Please join our mailing list, if you interest in CGI
+programming using qDecoder.
+To subscribe qDecoder mailing list send mail to majordomo@qDecoder.org
+with "subscribe qDecoder" in the body(not subject) of the message.
+Mailing-list archive can be founded at
+<a href="http://www.qDecoder.org/apps/bbs.cgi?db=qdecoder">here</a>.
+</i>
+
+<!-- ex) fetch.cgi -->
+<p><hr noshade>
+<h3>Example: <a href="fetch.c">fetch.c</a></h3>
+<form method="get" action="fetch.cgi">
+  GET method: application/x-www-form-urlencoded<br>
+  Type anything: <input type="text" name="query" value="">
+  <input type="submit" value="SUBMIT">
+</form>
+<form method="post" action="fetch.cgi">
+POST method: application/x-www-form-urlencoded<br>
+  Type anything: <input type="text" name="query" value="">
+  <input type="submit" value="SUBMIT">
+</form>
+<form method="post" enctype="multipart/form-data" action="fetch.cgi">
+  POST method: multipart/form-data<br>
+  Type anything: <input type="text" name="query" value="">
+  <input type="submit" value="SUBMIT">
+</form>
+
+<!-- ex) cookie.cgi -->
+<p><hr noshade>
+<h3>Example: <a href="cookie.c">cookie.c</a></h3>
+<form method="post" action="cookie.cgi">
+  <input type="hidden" name="mode" value="set">
+  <input type="text" name="cname" value="Name" size="10">
+  <input type="text" name="cvalue" value="Value">
+  <input type="submit" value="SET COOKIE">
+</form>
+<form method="post" action="cookie.cgi">
+  <input type="hidden" name="mode" value="remove">
+  <input type="text" name="cname" value="Name" size="10">
+  <input type="submit" value="REMOVE COOKIE">
+</form>
+<p>[<a href="cookie.cgi">View Cookie Variables</a>]
+
+<!-- ex) multivalue.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="multivalue.c">multivalue.c</a></h3>
+<form method="post" action="multivalue.cgi">
+  <input name="checklist" type=checkbox value="Hamburger"> Hamburger
+  <input name="checklist" type=checkbox value="Chicken"> Chicken
+  <input name="checklist" type=checkbox value="Photato"> Photato
+  <input name="checklist" type=checkbox value="Coke"> Coke
+  <input name="checklist" type=checkbox value="Orange Juice"> Orange Juice
+  <input type="submit" value="SUBMIT">
+</form>
+
+<!-- ex) upload.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="upload.c">upload.c</a> (Simple version for uploading small size of file)</h3>
+<form method="post" action="upload.cgi" enctype="multipart/form-data">
+  Input text: <input type="text" name="text">
+  <br>Select file: <input type="file" name="binary">
+  <br><input type="submit" value="UPLOAD FILE">
+</form>
+qDecoder stores the binary data of uploaded file into memory.
+Then upload.c saves it into disk. All most case this is useful.
+And also this is default mode for multipart/form-data decoding.
+
+<!-- ex) uploadprogress.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="uploadprogress.c">uploadprogress.c</a> (Advanced version for uploading huge size of file)</h3>
+<script language="JavaScript" src="qDecoder-upload/qDecoder-upload.js"></script>
+<form method="post" action="uploadprogress.cgi" enctype="multipart/form-data" onSubmit="return Q_UPLOAD(this);">
+  <input type="hidden" name="Q_UPLOAD_ID" value="">
+
+  Input text: <input type="text" name="text">
+  <br>Select file: <input type="file" name="binary1">
+  <br>Select file: <input type="file" name="binary2">
+  <br>Select file: <input type="file" name="binary3">
+  <br><input type="submit" value="UPLOAD FILE">
+</form>
+
+qDecoder stores the binary data of uploaded file into disk directly on the fly.
+So qDecoder uses smaller memory to handle huge size of file. If you want to activate
+this mode, please see this HTML source for hint.
+
+<!-- ex) download.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="download.c">download.c</a></h3>
+[<a href="download.cgi">Download example</a>]
+<p>
+
+<!-- ex) streamedit.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="streamedit.c">streamedit.c</a>, <a href="streamedit.html">Parsed HTML files</a></h3>
+<form method="post" action="streamedit.cgi">
+  Name: <input type="text" name="name" value="Eric Kim">
+  <br>Hobby: <input type="text" name="hobby" value="Playing Guitar">
+  <br><input type="submit" value="SUBMIT">
+</form>
+
+<!-- ex) arglist.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="arglist.c">arglist.c</a></h3>
+<form method="post" action="arglist.cgi">
+  String: <input type="text" name="string" value="Hi, I'm a pretty boy. Are you pretty girl?" size="50"><br>
+  Query:  <input type="text" name="query" value='I am a "pretty girl"'>
+  <input type="submit" value="SUBMIT">
+</form>
+
+<!-- ex) session.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="session.c">session.c</a></h3>
+<form method="post" action="session.cgi">
+  <input type="hidden" name="mode" value="string">
+  <input type="text" name="name" value="Name" size="10">
+  <input type="text" name="value" value="Value">
+  <input type="submit" value="ADD(SIMPLE)">
+</form>
+
+<form method="post" action="session.cgi">
+  <input type="text" name="name" value="Name" size="10">
+  <input type="text" name="value" value="Value">
+  <select name="mode">
+    <option value="string">STRING TYPE
+    <option value="integer">INTEGER
+  </select>
+  <select name="expire">
+    <option value="5">5 sec
+    <option value="10">10 sec
+    <option value="30">30 sec
+    <option value="60">1 min
+    <option value="1800" selected>30 min (default)
+    <option value="3600">1 hour
+    <option value="86400">1 day
+    <option value="604800">1 week
+    <option value="2592000">1 month
+  </select>
+  <input type="submit" value="ADD(ADVANCED)">
+</form>
+
+<form method="post" action="session.cgi">
+  <input type="hidden" name="mode" value="remove">
+  <input type="text" name="name" value="Name" size="10">
+  <input type="submit" value="REMOVE">
+</form>
+
+[<a href="session.cgi?mode=view">View Session Variables</a>]
+[<a href="session.cgi?mode=destroy">Destroy Session</a>]
+
+<!-- ex) confparser.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="confparser.c">confparser.c</a>, <a href="confparser.conf">Parsed Configuration File</a></h3>
+<p>[<a href="confparser.cgi">View Parsed Results</a>]
+
+<!-- ex) socket.cgi -->
+<hr size="1" noshade>
+<h3>Example: <a href="socket.c">socket.c</a></h3>
+<form method="post" action="socket.cgi">
+  Hostname: <input type="text" name="hostname" value="www.yahoo.com">
+  <br><input type="submit" value="GET HTTP HEADER">
+</form>
+
+<!-- End of examples -->
+<hr noshade>
+<center>
+<a href="http://www.qDecoder.org"><img src="../qDecoder.jpg" alt="qDecoder" border="0"></a>
+</center>
+
+</body>
+</html>

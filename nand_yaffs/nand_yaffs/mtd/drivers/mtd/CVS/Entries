@@ -1,0 +1,30 @@
+D/chips////
+D/devices////
+D/maps////
+D/nand////
+/.cvsignore/1.1/Wed Apr 16 16:09:25 2003//
+/Makefile/1.74/Fri May 23 22:00:07 2003//
+/GNUmakefile/1.16/Wed May 28 22:00:06 2003//
+/defconfig/1.5/Mon Jun 23 22:00:07 2003//
+/afs.c/1.13/Fri Feb 27 23:00:04 2004//
+/mtdconcat.c/1.9/Wed Jun 30 22:00:10 2004//
+/Makefile.inc/1.4/Wed Jul 14 22:00:10 2004//
+/Config.in/1.78/Mon Aug  9 22:00:14 2004//
+/Makefile.common/1.5/Tue Aug 10 22:00:26 2004//
+/Makefile.24/1.3/Wed Aug 11 22:00:10 2004//
+/ssfdc.c/1.2/Wed Aug 25 22:00:10 2004//
+/inftlcore.c/1.18/Tue Nov 16 23:00:11 2004//
+/mtd_blkdevs.c/1.24/Tue Nov 16 23:00:11 2004//
+/mtdblock_ro.c/1.19/Tue Nov 16 23:00:11 2004//
+/nftlcore.c/1.97/Tue Nov 16 23:00:12 2004//
+/cmdlinepart.c/1.17/Fri Nov 26 14:08:28 2004//
+/inftlmount.c/1.16/Fri Nov 26 14:08:28 2004//
+/mtdblock.c/1.66/Fri Nov 26 14:08:28 2004//
+/nftlmount.c/1.40/Fri Nov 26 14:08:28 2004//
+/redboot.c/1.17/Fri Nov 26 14:08:28 2004//
+/mtd_blkdevs-24.c/1.17/Wed Jan  5 23:00:06 2005//
+/mtdpart.c/1.53/Tue Feb  8 23:00:07 2005//
+/mtdcore.c/1.45/Fri Feb 18 23:00:06 2005//
+/Kconfig/1.8/Thu Mar 17 23:00:07 2005//
+/ftl.c/1.56/Thu Mar 17 23:00:07 2005//
+/mtdchar.c/1.70/Fri Apr  1 22:00:08 2005//

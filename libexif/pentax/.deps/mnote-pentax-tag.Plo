@@ -1,0 +1,44 @@
+mnote-pentax-tag.lo : \
+ mnote-pentax-tag.c ../../config.h mnote-pentax-tag.h \
+  /usr/local/mipsel-linux/include/stdlib.h \
+  /usr/local/mipsel-linux/include/features.h \
+  /usr/local/mipsel-linux/include/bits/uClibc_config.h \
+  /usr/local/mipsel-linux/include/sys/cdefs.h \
+  /usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stddef.h \
+  /usr/local/mipsel-linux/include/sys/types.h \
+  /usr/local/mipsel-linux/include/bits/types.h \
+  /usr/local/mipsel-linux/include/bits/kernel_types.h \
+  /usr/local/mipsel-linux/include/bits/pthreadtypes.h \
+  /usr/local/mipsel-linux/include/bits/sched.h \
+  /usr/local/mipsel-linux/include/time.h \
+  /usr/local/mipsel-linux/include/endian.h \
+  /usr/local/mipsel-linux/include/bits/endian.h \
+  /usr/local/mipsel-linux/include/sys/select.h \
+  /usr/local/mipsel-linux/include/bits/select.h \
+  /usr/local/mipsel-linux/include/bits/sigset.h \
+  /usr/local/mipsel-linux/include/bits/time.h \
+  /usr/local/mipsel-linux/include/sys/sysmacros.h \
+  /usr/local/mipsel-linux/include/alloca.h ../../libexif/i18n.h
+mnote-pentax-tag.c :
+../../config.h :
+mnote-pentax-tag.h :
+/usr/local/mipsel-linux/include/stdlib.h :
+/usr/local/mipsel-linux/include/features.h :
+/usr/local/mipsel-linux/include/bits/uClibc_config.h :
+/usr/local/mipsel-linux/include/sys/cdefs.h :
+/usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stddef.h :
+/usr/local/mipsel-linux/include/sys/types.h :
+/usr/local/mipsel-linux/include/bits/types.h :
+/usr/local/mipsel-linux/include/bits/kernel_types.h :
+/usr/local/mipsel-linux/include/bits/pthreadtypes.h :
+/usr/local/mipsel-linux/include/bits/sched.h :
+/usr/local/mipsel-linux/include/time.h :
+/usr/local/mipsel-linux/include/endian.h :
+/usr/local/mipsel-linux/include/bits/endian.h :
+/usr/local/mipsel-linux/include/sys/select.h :
+/usr/local/mipsel-linux/include/bits/select.h :
+/usr/local/mipsel-linux/include/bits/sigset.h :
+/usr/local/mipsel-linux/include/bits/time.h :
+/usr/local/mipsel-linux/include/sys/sysmacros.h :
+/usr/local/mipsel-linux/include/alloca.h :
+../../libexif/i18n.h :

@@ -1,0 +1,9 @@
+/Makefile/1.1/Sun Mar  3 15:43:34 2002//
+D/zlib_deflate////
+D/zlib_inflate////
+/patch-Makefile/1.1/Tue Nov 26 22:24:12 2002//
+/Makefile24-rs.diff/1.1/Thu Sep 16 23:58:56 2004//
+/Makefile26-rs.diff/1.1/Thu Sep 16 23:58:56 2004//
+D/reed_solomon////
+/Kconfig-rs.diff/1.2/Wed Oct  6 22:00:12 2004//
+/Config.in-rs.diff/1.2/Wed Jan  5 23:00:15 2005//

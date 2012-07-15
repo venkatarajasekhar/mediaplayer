@@ -1,0 +1,59 @@
+-include ../../../../../branch_src_sharedMemory_integration/Tools/MConfig/.config
+include ../../../../../include/MakeConfig
+include ../MakeConfig
+
+rm=/bin/rm -f
+AR= $(MYAR) crv
+RANLIB= $(MYRANLIB)
+CC=$(MYCC)
+LIBNAME= ../../../../../lib/libSamba$(TOOLCHAIN_VER)$(SAMBA_VER).a
+CFLAGS+= -I./ -I../lib/zlib -Iinclude -I./include -I. -I. -I./../lib/replace -I./../lib/talloc -I./../lib/tevent -I./../lib/tdb/include -I./libaddns -I./librpc -I./.. -I./../lib/popt -ffunction-sections 
+LIBS+= -lresolv -ldl 
+# debug flag
+#CFLAGS+= -I./ -I./include  -I./popt -g
+
+SRCS = ./jssmb.c 
+OBJS = ./jssmb.o 
+#LIBS_OTHER += bin/libtalloc.a bin/libtdb.a bin/libwbclient.a
+LIBTALLOC_OBJ0 =  ../lib/talloc/talloc.o
+LIBTDB_OBJ0 =  ../lib/tdb/common/tdb.o ../lib/tdb/common/dump.o ../lib/tdb/common/transaction.o ../lib/tdb/common/error.o ../lib/tdb/common/traverse.o ../lib/tdb/common/freelist.o ../lib/tdb/common/freelistcheck.o ../lib/tdb/common/io.o ../lib/tdb/common/lock.o ../lib/tdb/common/open.o
+LIBWBCLIENT_OBJ0 = ../nsswitch/libwbclient/wbclient.o \
+                  ../nsswitch/libwbclient/wbc_util.o \
+                  ../nsswitch/libwbclient/wbc_pwd.o \
+                  ../nsswitch/libwbclient/wbc_idmap.o \
+                  ../nsswitch/libwbclient/wbc_sid.o \
+                  ../nsswitch/libwbclient/wbc_guid.o \
+                  ../nsswitch/libwbclient/wbc_pam.o
+WBCOMMON_OBJ = ../nsswitch/wb_common.o
+
+#JSSMB_OBJ += utils/nmblookup.o utils/smbtree.o
+MAIN_OBJS += dynconfig.o param/loadparm.o param/util.o lib/sharesec.o lib/ldap_debug_handler.o registry/reg_api.o registry/reg_dispatcher.o registry/reg_cachehook.o registry/regfio.o registry/reg_objects.o registry/reg_util.o lib/util_reg_api.o lib/util_nttoken.o registry/reg_backend_db.o registry/reg_init_basic.o registry/reg_backend_smbconf.o registry/reg_init_smbconf.o ../lib/smbconf/smbconf.o ../lib/smbconf/smbconf_util.o ../lib/smbconf/smbconf_txt.o lib/smbconf/smbconf_reg.o lib/smbconf/smbconf_init.o lib/privileges_basic.o profile/profile.o ../lib/replace/replace.o ../lib/replace/snprintf.o ../lib/replace/getpass.o ../lib/replace/strptime.o ../lib/replace/getifaddrs.o ../lib/util/rbtree.o ../lib/util/signal.o ../lib/util/time.o ../lib/util/xfile.o ../lib/util/util_strlist.o ../lib/util/util_file.o ../lib/util/data_blob.o ../lib/util/util.o ../lib/util/fsusage.o ../lib/util/params.o ../lib/util/talloc_stack.o ../lib/util/genrand.o ../lib/util/util_net.o ../lib/util/become_daemon.o ../lib/util/system.o ../lib/util/tevent_unix.o ../lib/util/tevent_ntstatus.o ../lib/crypto/crc32.o ../lib/crypto/md5.o ../lib/crypto/hmacmd5.o ../lib/crypto/arcfour.o ../lib/crypto/md4.o lib/messages.o librpc/gen_ndr/ndr_messaging.o lib/messages_local.o lib/messages_ctdbd.o lib/packet.o lib/ctdbd_conn.o lib/interfaces.o lib/memcache.o lib/util_transfer_file.o ../lib/async_req/async_req.o ../lib/async_req/async_sock.o ../lib/async_req/async_req_ntstatus.o lib/util_tdb.o ../lib/util/util_tdb.o lib/dbwrap.o lib/dbwrap_tdb.o lib/dbwrap_ctdb.o lib/dbwrap_rbt.o lib/version.o lib/charcnv.o lib/debug.o lib/fault.o lib/interface.o lib/pidfile.o lib/system.o lib/sendfile.o lib/recvfile.o lib/time.o lib/username.o lib/util_pw.o lib/access.o lib/smbrun.o lib/bitmap.o lib/dprintf.o lib/util_reg.o lib/wins_srv.o lib/util_str.o lib/clobber.o lib/util_sid.o lib/util_uuid.o lib/util_unistr.o lib/util_file.o lib/util.o lib/util_sock.o lib/sock_exec.o lib/util_sec.o lib/substitute.o lib/dbwrap_util.o lib/ms_fnmatch.o lib/select.o lib/errmap_unix.o lib/tallocmsg.o lib/dmallocmsg.o libsmb/smb_signing.o lib/iconv.o lib/pam_errors.o intl/lang_tdb.o lib/conn_tdb.o lib/adt_tree.o lib/gencache.o lib/module.o lib/events.o ./../lib/tevent/tevent.o ./../lib/tevent/tevent_debug.o ./../lib/tevent/tevent_util.o ./../lib/tevent/tevent_fd.o ./../lib/tevent/tevent_timed.o ./../lib/tevent/tevent_immediate.o ./../lib/tevent/tevent_signal.o ./../lib/tevent/tevent_req.o ./../lib/tevent/tevent_wakeup.o ./../lib/tevent/tevent_queue.o ./../lib/tevent/tevent_standard.o ./../lib/tevent/tevent_select.o ./../lib/tevent/tevent_epoll.o lib/ldap_escape.o lib/secdesc.o lib/util_seaccess.o ../libcli/security/secace.o ../libcli/security/secacl.o libads/krb5_errs.o lib/system_smbd.o lib/audit.o ../librpc/ndr/ndr_basic.o ../librpc/ndr/ndr.o ../librpc/ndr/ndr_misc.o ../librpc/gen_ndr/ndr_misc.o ../librpc/gen_ndr/ndr_security.o ../librpc/ndr/ndr_sec_helper.o librpc/ndr/ndr_string.o ../librpc/ndr/uuid.o librpc/ndr/util.o lib/file_id.o lib/idmap_cache.o ../libcli/security/dom_sid.o lib/dummysmbd.o lib/dummyroot.o libsmb/clientgen.o libsmb/cliconnect.o libsmb/clifile.o libsmb/clikrb5.o libsmb/clispnego.o ../lib/util/asn1.o libsmb/clirap.o libsmb/clierror.o libsmb/climessage.o libsmb/clireadwrite.o libsmb/clilist.o libsmb/cliprint.o libsmb/clitrans.o libsmb/clisecdesc.o libsmb/clidgram.o libsmb/clistr.o libsmb/cliquota.o libsmb/clifsinfo.o libsmb/clidfs.o libsmb/credentials.o libsmb/clioplock.o libsmb/clirap2.o libsmb/smb_seal.o libsmb/async_smb.o libsmb/ntlm_check.o libsmb/ntlmssp.o libsmb/ntlmssp_sign.o libsmb/nterr.o libsmb/smberr.o ../libcli/util/doserr.o libsmb/errormap.o ../librpc/rpc/dcerpc_error.o libsmb/smbdes.o libsmb/smbencrypt.o libsmb/ntlmssp_parse.o rpc_parse/parse_prs.o rpc_parse/parse_misc.o passdb/secrets.o passdb/machine_sid.o libsmb/unexpected.o libsmb/namecache.o libsmb/nmblib.o libsmb/namequery.o libsmb/conncache.o libads/dns.o ../libcli/nbt/nbtname.o ../libcli/netlogon.o ../libcli/ndr_netlogon.o ../librpc/gen_ndr/ndr_nbt.o ../librpc/gen_ndr/ndr_svcctl.o ../librpc/ndr/ndr_svcctl.o libads/cldap.o ../libcli/ldap/ldap_message.o ../libcli/ldap/ldap_ndr.o ../librpc/ndr/ndr_drsuapi.o ../librpc/ndr/ndr_compression.o ../librpc/gen_ndr/ndr_drsuapi.o ../librpc/ndr/ndr_drsblobs.o ../librpc/gen_ndr/ndr_drsblobs.o ../lib/compression/mszip.o ../lib/compression/lzxpress.o ../lib/zlib/adler32.o ../lib/zlib/compress.o ../lib/zlib/crc32.o ../lib/zlib/gzio.o ../lib/zlib/uncompr.o ../lib/zlib/deflate.o ../lib/zlib/trees.o ../lib/zlib/zutil.o ../lib/zlib/inflate.o ../lib/zlib/infback.o ../lib/zlib/inftrees.o ../lib/zlib/inffast.o libads/kerberos.o libads/ads_status.o lib/popt_common.o rpc_client/cli_pipe.o rpc_client/rpc_transport_np.o rpc_client/rpc_transport_sock.o rpc_client/rpc_transport_smbd.o ../librpc/rpc/binding.o rpc_parse/parse_rpc.o rpc_client/init_netlogon.o rpc_client/init_lsa.o rpc_client/cli_netlogon.o passdb/pdb_get_set.o passdb/passdb.o passdb/pdb_interface.o passdb/util_wellknown.o passdb/util_builtin.o passdb/pdb_compat.o passdb/util_unixsids.o passdb/lookup_sid.o passdb/login_cache.o passdb/pdb_smbpasswd.o passdb/pdb_tdb.o passdb/pdb_wbc_sam.o lib/account_pol.o lib/privileges.o lib/util_nscd.o lib/winbind_util.o lib/server_mutex.o lib/ldb/common/ldb.o lib/ldb/common/ldb_ldif.o lib/ldb/common/ldb_parse.o lib/ldb/common/ldb_msg.o lib/ldb/common/ldb_utf8.o lib/ldb/common/ldb_debug.o lib/ldb/common/ldb_modules.o lib/ldb/common/ldb_dn.o lib/ldb/common/ldb_match.o lib/ldb/common/ldb_attributes.o lib/ldb/common/attrib_handlers.o lib/ldb/common/ldb_controls.o lib/ldb/common/qsort.o lib/ldb/ldb_tdb/ldb_tdb.o lib/ldb/ldb_tdb/ldb_pack.o lib/ldb/ldb_tdb/ldb_search.o lib/ldb/ldb_tdb/ldb_index.o lib/ldb/ldb_tdb/ldb_cache.o lib/ldb/ldb_tdb/ldb_tdb_wrap.o lib/ldb/modules/operational.o lib/ldb/modules/rdn_name.o lib/ldb/modules/objectclass.o lib/ldb/modules/paged_results.o lib/ldb/modules/sort.o lib/ldb/modules/asq.o groupdb/mapping.o groupdb/mapping_tdb.o groupdb/mapping_ldb.o ../librpc/gen_ndr/cli_lsa.o ../librpc/gen_ndr/cli_dfs.o ../librpc/gen_ndr/cli_echo.o ../librpc/gen_ndr/cli_srvsvc.o ../librpc/gen_ndr/cli_svcctl.o ../librpc/gen_ndr/cli_winreg.o ../librpc/gen_ndr/cli_initshutdown.o ../librpc/gen_ndr/cli_eventlog.o ../librpc/gen_ndr/cli_wkssvc.o ../librpc/gen_ndr/cli_netlogon.o ../librpc/gen_ndr/cli_samr.o ../librpc/gen_ndr/cli_dssetup.o ../librpc/gen_ndr/cli_ntsvcs.o ../librpc/gen_ndr/cli_epmapper.o ../librpc/gen_ndr/cli_drsuapi.o ../librpc/gen_ndr/cli_spoolss.o ../librpc/gen_ndr/ndr_wkssvc.o ../librpc/gen_ndr/ndr_samr.o ../librpc/gen_ndr/ndr_lsa.o ../librpc/gen_ndr/ndr_dfs.o ../librpc/gen_ndr/ndr_echo.o ../librpc/gen_ndr/ndr_winreg.o ../librpc/gen_ndr/ndr_initshutdown.o ../librpc/gen_ndr/ndr_srvsvc.o ../librpc/gen_ndr/ndr_eventlog.o ../librpc/gen_ndr/ndr_netlogon.o ../librpc/ndr/ndr_netlogon.o ../librpc/gen_ndr/ndr_dssetup.o librpc/gen_ndr/ndr_notify.o ../librpc/gen_ndr/ndr_xattr.o ../librpc/gen_ndr/ndr_epmapper.o ../librpc/gen_ndr/ndr_named_pipe_auth.o ../librpc/gen_ndr/ndr_ntsvcs.o ../librpc/gen_ndr/ndr_spoolss.o ../librpc/ndr/ndr_spoolss_buf.o rpc_client/ndr.o modules/CP850.o modules/CP437.o 
+
+POPT_LIBS += ../lib/popt/findme.o ../lib/popt/popt.o ../lib/popt/poptconfig.o ../lib/popt/popthelp.o ../lib/popt/poptparse.o
+
+ifeq ($(CREATE_EXEC_FILE),YES)
+    CFLAGS += -DEXECUTION_FILE
+endif
+
+.c.o:
+	$(rm) -f $@
+	$(CC) $(CFLAGS) $(DEBUGFLAG) $(WARNING) -c $*.c
+### following configure for build execution file
+ifeq ($(CREATE_EXEC_FILE),YES)
+#cp=/bin/cp -f
+all : bin/jssmb
+#	$(cp) bin/jssmb ../../../../Unit_test/GrandMa_DG_StateMachine/jssmb
+bin/jssmb: $(OBJS) 
+	@echo Linking $@
+	@$(CC) $(FLAGS)  -o $@ $(MAIN_OBJS) $(LIBTALLOC_OBJ0) $(LIBTDB_OBJ0) $(LIBWBCLIENT_OBJ0) $(WBCOMMON_OBJ) $(POPT_LIBS) $(OBJS) $(LIBS) -static -ffunction-sections -Wl,--gc-sections
+else
+### following configure for build library file
+all : $(LIBNAME)
+ 
+$(LIBNAME) : $(OBJS) 
+	$(rm) $@
+	$(AR) $@ $(MAIN_OBJS) $(LIBTALLOC_OBJ0) $(LIBTDB_OBJ0) $(LIBWBCLIENT_OBJ0) $(WBCOMMON_OBJ) $(POPT_LIBS) $(OBJS)
+	$(RANLIB) $@
+endif
+clean:
+	$(rm) $(OBJS) $(LIBNAME)

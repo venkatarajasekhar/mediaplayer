@@ -1,0 +1,78 @@
+exif-mnote-data-pentax.lo : \
+ exif-mnote-data-pentax.c ../../config.h \
+  exif-mnote-data-pentax.h ../../libexif/exif-byte-order.h \
+  ../../libexif/exif-mnote-data.h ../../libexif/exif-log.h \
+  ../../libexif/exif-mem.h ../../libexif/exif-utils.h \
+  ../../libexif/exif-format.h ../../libexif/_stdint.h \
+  /usr/local/mipsel-linux/include/stdint.h \
+  /usr/local/mipsel-linux/include/features.h \
+  /usr/local/mipsel-linux/include/bits/uClibc_config.h \
+  /usr/local/mipsel-linux/include/sys/cdefs.h \
+  /usr/local/mipsel-linux/include/bits/wchar.h \
+  /usr/local/mipsel-linux/include/bits/wordsize.h \
+  /usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stdarg.h \
+  ../../libexif/exif-mnote-data-priv.h \
+  ../../libexif/pentax/mnote-pentax-entry.h \
+  ../../libexif/pentax/mnote-pentax-tag.h \
+  /usr/local/mipsel-linux/include/stdlib.h \
+  /usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stddef.h \
+  /usr/local/mipsel-linux/include/sys/types.h \
+  /usr/local/mipsel-linux/include/bits/types.h \
+  /usr/local/mipsel-linux/include/bits/kernel_types.h \
+  /usr/local/mipsel-linux/include/bits/pthreadtypes.h \
+  /usr/local/mipsel-linux/include/bits/sched.h \
+  /usr/local/mipsel-linux/include/time.h \
+  /usr/local/mipsel-linux/include/endian.h \
+  /usr/local/mipsel-linux/include/bits/endian.h \
+  /usr/local/mipsel-linux/include/sys/select.h \
+  /usr/local/mipsel-linux/include/bits/select.h \
+  /usr/local/mipsel-linux/include/bits/sigset.h \
+  /usr/local/mipsel-linux/include/bits/time.h \
+  /usr/local/mipsel-linux/include/sys/sysmacros.h \
+  /usr/local/mipsel-linux/include/alloca.h \
+  /usr/local/mipsel-linux/include/string.h \
+  /usr/local/mipsel-linux/include/stdio.h \
+  /usr/local/mipsel-linux/include/bits/uClibc_stdio.h \
+  /usr/local/mipsel-linux/include/wchar.h \
+  /usr/local/mipsel-linux/include/bits/stdio_lim.h
+exif-mnote-data-pentax.c :
+../../config.h :
+exif-mnote-data-pentax.h :
+../../libexif/exif-byte-order.h :
+../../libexif/exif-mnote-data.h :
+../../libexif/exif-log.h :
+../../libexif/exif-mem.h :
+../../libexif/exif-utils.h :
+../../libexif/exif-format.h :
+../../libexif/_stdint.h :
+/usr/local/mipsel-linux/include/stdint.h :
+/usr/local/mipsel-linux/include/features.h :
+/usr/local/mipsel-linux/include/bits/uClibc_config.h :
+/usr/local/mipsel-linux/include/sys/cdefs.h :
+/usr/local/mipsel-linux/include/bits/wchar.h :
+/usr/local/mipsel-linux/include/bits/wordsize.h :
+/usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stdarg.h :
+../../libexif/exif-mnote-data-priv.h :
+../../libexif/pentax/mnote-pentax-entry.h :
+../../libexif/pentax/mnote-pentax-tag.h :
+/usr/local/mipsel-linux/include/stdlib.h :
+/usr/local/lib/gcc-lib/mipsel-linux/2.96-sdelinuxmips-040127/include/stddef.h :
+/usr/local/mipsel-linux/include/sys/types.h :
+/usr/local/mipsel-linux/include/bits/types.h :
+/usr/local/mipsel-linux/include/bits/kernel_types.h :
+/usr/local/mipsel-linux/include/bits/pthreadtypes.h :
+/usr/local/mipsel-linux/include/bits/sched.h :
+/usr/local/mipsel-linux/include/time.h :
+/usr/local/mipsel-linux/include/endian.h :
+/usr/local/mipsel-linux/include/bits/endian.h :
+/usr/local/mipsel-linux/include/sys/select.h :
+/usr/local/mipsel-linux/include/bits/select.h :
+/usr/local/mipsel-linux/include/bits/sigset.h :
+/usr/local/mipsel-linux/include/bits/time.h :
+/usr/local/mipsel-linux/include/sys/sysmacros.h :
+/usr/local/mipsel-linux/include/alloca.h :
+/usr/local/mipsel-linux/include/string.h :
+/usr/local/mipsel-linux/include/stdio.h :
+/usr/local/mipsel-linux/include/bits/uClibc_stdio.h :
+/usr/local/mipsel-linux/include/wchar.h :
+/usr/local/mipsel-linux/include/bits/stdio_lim.h :

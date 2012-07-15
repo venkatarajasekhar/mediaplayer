@@ -1,0 +1,1 @@
+EXEC_PROGRAM(make ${CMAKE_CURRENT_SOURCE_DIR} ARGS -f makefile.ipkg)

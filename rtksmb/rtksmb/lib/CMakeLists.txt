@@ -1,0 +1,29 @@
+INCLUDE(../../../../../include/config.txt)
+SET(LIBNAME rtksmb)
+SET(LIBRARY_OUTPUT_PATH ../../../../../lib/)
+
+
+SET(rm " /bin/rm -f")
+SET(CXX " ${MYCXX}")
+SET(DEFS )
+SET(AR " ${MYAR} cq")
+SET(RANLIB " ${MYRANLIB}")
+#SET(LIBNAME ../../../../../lib/librtksmb.a)
+SET(INCLUDES  ${INCLUDES} " ${CMAKE_CURRENT_SOURCE_DIR}/../../../../Include/")
+
+
+SET(INCLUDES ${INCLUDES} " ${CMAKE_CURRENT_SOURCE_DIR}/.")
+SET(CFLAGS ${CFLAGS} " -DHAVE_CONFIG_H -g -O2 -Wall -fno-exceptions")
+
+SET(SRCS rtksmblib.cpp)
+SET(OBJS rtksmblib.o)
+
+INCLUDE_DIRECTORIES(${INCLUDES})
+ADD_DEFINITIONS(${CFLAGS} ${DEBUGFLAG} ${WARNING})
+ADD_LIBRARY(${LIBNAME} ${SRCS})
+string(REGEX REPLACE  ";" " " APCFG_DVR  ${APCFG_DVR})
+string(REGEX REPLACE  ";" " " CHIP_MODEL_DEFS ${CHIP_MODEL_DEFS})
+string(REGEX REPLACE  ";" " " APCFG_DEFS ${APCFG_DEFS})
+#string(REGEX REPLACE  ";" " " BUILD_OPTIONS ${BUILD_OPTIONS})
+string(REGEX REPLACE  ";" " " DEFINES ${DEFINES})
+string(REGEX REPLACE  ";" " " APCFG_FLAGS ${APCFG_FLAGS})

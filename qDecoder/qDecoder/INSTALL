@@ -1,0 +1,293 @@
+                          [The qDecoder Project]
+  ------------------------------------------------------------------------
+
+qDecoder Installation Guide
+
+   * Getting qDecoder Package
+   * Unpacking qDecoder Package
+   * Compile
+   * Install
+   * Deinstall
+   * Test
+   * Running under Microsoft Visual C++
+
+Step 1. Getting qDecoder Package
+
+The latest version of qDecoder can be downloaded from
+http://www.qDecoder.org/ or ftp://ftp.qDecoder.org/pub/qDecoder/.
+
+Step 2. Unpacking qDecoder Package
+
+Basically, qDecoder is provided being compressed with tar on Unix. Follow
+the below procedure to decompress it.
+
+     $ uncompress qDecoder-VERSION.tar.Z
+     $ tar xvf qDecoder-VERSION.tar
+
+On a system installed with GNU TAR, it can be decompressed at once as
+follows:
+
+     $ tar xvfZ qDecoder-VERSION.tar.Z
+
+A directory corresponding to qDecoder-VERSION is created. And the package
+is unpacked like the following:
+
+     $ cd qDecoder-VERSION
+     $ ls -asCF
+       1 ./                    3 Makefile.in           6 install-sh*
+       1 ../                   7 README                2 qDecoder.jpg
+       1 AUTHORS              48 REFERENCE             1 rfc/
+       9 CHANGES              55 configure*            1 src/
+      26 COPYING               3 configure.in          1 win32/
+       2 DISCLAIMER            1 contrib/
+      12 INSTALL               1 examples/
+
+     AUTHORS    - List of manufacturers' names
+     CHANGES    - Changes of each version
+     COPYING    - Copyright-related documents
+     DISCLAIMER - Copyright-related signatures
+     INSTALL    - Installation guide
+     README     - General guide
+     REFERENCE  - Manual on how to use functions
+     qDecoder.jpg - Logotype picture
+
+     Makefile.in --+
+     configure     +
+     configure.in  +--> Autoconf-related files
+     install-sh  --+
+
+     contrib/... - A directory where distributed pertinent programs are located.
+     examples/... - Collection of example sources.
+     rfc/... - Collection of RFC-related documents.
+     src/... - qDecoder main sources.
+     win32/... - Static library creation project files for Microsoft Visual C++ use.
+
+Step 3. Compile
+
+qDecoder makes the compilation between different platforms more convenient
+by applying Autoconf (6.0.1 and above) which almost all the GNU software
+and free/open source software adopt. The compilation method is, like that
+of general open sources, through "make" after configuration, which checks
+to see if the compiler environment, needed functions and commands of the
+pertinent system can be used, and then constructs Makefile for them to be
+compiled in the system most efficiently.
+
+     $ cd qDecoder-VERSION
+
+     $ ./configure
+     creating cache ./config.cache
+     checking for gcc... gcc
+     checking whether the C compiler (gcc  ) works... yes
+     checking whether the C compiler (gcc  ) is a cross-compiler... no
+     ...(skip)...
+     creating Makefile
+     creating src/Makefile
+     creating examples/Makefile
+     creating contrib/qValue-1.0.1/Makefile
+     creating contrib/qcValue-1.0/Makefile
+
+     $ ls -asCF (We can note that Makefile is created.)
+       1 ./                    3 Makefile.in           1 contrib/
+       1 ../                   7 README                1 examples/
+       1 AUTHORS              48 REFERENCE             6 install-sh*
+       9 CHANGES               2 config.cache          2 qDecoder.jpg
+      26 COPYING               2 config.log            1 rfc/
+       2 DISCLAIMER            6 config.status*        1 src/
+      12 INSTALL              55 configure*            1 win32/
+       3 Makefile              3 configure.in
+
+     $ make
+     ===> src
+     gcc -g -O2 -DSTDC_HEADERS=1 -DHAVE_CTYPE_H=1 -DHAVE_TIME_H=1 -DHAVE_SYS_STAT_H=1
+      -DHAVE_SYS_TYPES_H=1 -DHAVE_STRFTIME=1 -DHAVE_VPRINTF=1 -DHAVE_STRDUP=1 -DHAVE_
+     STRSTR=1 -I. -c -o qDecoder.o qDecoder.c
+     ...(omission)...
+     /bin/rm -f libqDecoder.so
+     ln -s libqDecoder.so.1 libqDecoder.so
+     <=== src
+     ===> examples
+     gcc -g -O2 -DSTDC_HEADERS=1 -DHAVE_CTYPE_H=1 -DHAVE_TIME_H=1 -DHAVE_SYS_STAT_H=1
+      -DHAVE_SYS_TYPES_H=1 -DHAVE_STRFTIME=1 -DHAVE_VPRINTF=1 -DHAVE_STRDUP=1 -DHAVE_
+     STRSTR=1 -I. -I../src -c -o fetch.o fetch.c
+     ...(omission)...
+     gcc -g -O2 -DSTDC_HEADERS=1 -DHAVE_CTYPE_H=1 -DHAVE_TIME_H=1 -DHAVE_SYS_STAT_H=1
+      -DHAVE_SYS_TYPES_H=1 -DHAVE_STRFTIME=1 -DHAVE_VPRINTF=1 -DHAVE_STRDUP=1 -DHAVE_
+     STRSTR=1 -I. -I../src -o arglist.cgi arglist.o ../src/libqDecoder.a
+     <=== examples
+     ...(omission)...
+
+NOTE) In case of Solaris, it is often the case that "make" is not set up in
+the primary path. In this case, try after adding to the path the
+'/usr/ccs/bin/" directory where "make" is located.
+
+NOTE) If you wish to delete the library and object created by compilation
+and maintain the condition of the early distributed edition, enter "make
+clean". In this case, "make clean" does not delete Makefile created by the
+configuration for the convenience purpose. If you wish to make an
+environment to be exactly the same as that of the early distributed
+edition, use "make distclean".
+
+NOTE) Compiled packages of each platform are provided on
+ftp://ftp.qDecoder.org/pub/qDecoder/precompiled/ for those users that are
+not able to perform the procedure or for those cases in which there is no
+compiler in the system.
+
+Step 4. Install
+
+The "make install" command is used in order to install a library. "make
+install" installs a library on the system. And the installation location of
+headers and libraries is adjusted by the --prefix, --libdir, --includedir
+options during the configuration. The relationship between the installation
+location and the options is as follows, and the installation location comes
+to be /usr/local/lib, /usr/local/include when the configuration is
+performed without any argument.
+
+     ${prefix}          ===> /usr/local        (default)
+     ${libdir}          ===> ${prefix}/lib     (default)
+     ${includedir}      ===> ${prefix}/include (default)
+
+     libqDecoder.a      ===> ${libdir}/libqDecoder.a
+     libqDecoder.so.[n] ===> ${libdir}/libqDecoder.so.[n]
+     libqDecoder.so     ===> ${libdir}/libqDecoder.so
+     qDecoder.h         ===> ${includedir}/include/qDecoder.h
+
+     ex) $ ./configure --prefix=/usr
+     ex) $ ./configure --libdir=/home/nobreak/mylib --includedir=/home/nobreak/myinclude
+
+NOTE) libqDecoder.so is a symbolic link that refers to libqDecoder.so.[n]
+which is the actual shared library. Here, n is an integer that increases
+from 1. It increases when the downward compatibility lacks. Let's take
+version 6.0.1 for example, in which it is libqDecoder.so.1. Even if the
+qDecoder version increases to 7.0 and 8.0, the shared library will be
+created as libqDecoder.so.1 when the downward compatibility is maintained.
+
+     $ cd qDecoder-VERSION
+
+     $ make install
+     ln -s libqDecoder.so.1 libqDecoder.so
+     /usr/bin/install -c -m 444 qDecoder.h /usr/local/include/qDecoder.h
+     /usr/bin/install -c -m 444 libqDecoder.a /usr/local/lib/libqDecoder.a
+     /usr/bin/install -c -m 444 libqDecoder.so.1 /usr/local/lib/libqDecoder.so.1
+     /bin/rm -f /usr/local/lib/libqDecoder.so
+     ln -s /usr/local/lib/libqDecoder.so.1 /usr/local/lib/libqDecoder.so
+
+NOTE) A root privilege is required for an installation in the system area.
+
+Step 5. Deinstall
+
+The installed qDecoder can be completely deleted by "make deinstall".
+
+     $ make deinstall
+     /bin/rm -f /usr/local/include/qDecoder.h
+     /bin/rm -f /usr/local/lib/libqDecoder.a
+     /bin/rm -f /usr/local/lib/libqDecoder.so.1
+     /bin/rm -f /usr/local/lib/libqDecoder.so
+
+Step 6. Test
+
+In the examples directory, there are example sources that have been
+produced in advance. Since sources are automatically compiled when packages
+are compiled, tests can be performed immediately after examples.html of the
+corresponding directory is opened by browsers. Referring to source codes
+and Makefile, think how you should apply qDecoder to your program.
+
+The example is linked to the static library (libqDecoder.a). If a shared
+library (libqDecoder.so) is linked, the program gets more compact and works
+efficiently. Modify "QLIB = ../src/libqDecoder.a" of examples/Makefile into
+"QLIB = ../src/libqDecoder.so". And then, compile it again through the
+"make clean all" command at the examples directory. (You can get the same
+result by doing as follows at the examples directory without modifying
+Makefile: ``make clean all QLIB=../src/libqDecoder.so'')
+
+     $ make clean all QLIB=../src/libqDecoder.a (When linking static libraries)
+     $ ls -al *.cgi
+     -rwxr-xr-x  1 root  power  61876   6  2 22:32 arglist.cgi
+     -rwxr-xr-x  1 root  power  61210   6  2 22:32 fetch.cgi
+     -rwxr-xr-x  1 root  power  61331   6  2 22:32 multivalue.cgi
+     -rwxr-xr-x  1 root  power  61551   6  2 22:32 streamedit.cgi
+     -rwsr-sr-x  1 root  power  61639   6  2 22:32 upload.cgi
+
+     $ make clean all QLIB=../src/libqDecoder.so (When linking shared libraries)
+     $ ls -al *.cgi
+     -rwxr-xr-x  1 root  power  12682   6  2 22:33 arglist.cgi
+     -rwxr-xr-x  1 root  power  11560   6  2 22:33 fetch.cgi
+     -rwxr-xr-x  1 root  power  11852   6  2 22:33 multivalue.cgi
+     -rwxr-xr-x  1 root  power  12052   6  2 22:33 streamedit.cgi
+     -rwsr-sr-x  1 root  power  12393   6  2 22:33 upload.cgi
+
+Step 7. Running under Microsoft Visual C++
+
+Although, for the convenience purpose, qDecoder is provided by using Unix
+packaging tools, and almost all the examples are prepared on the basis of
+Unixenvironment, they are developed the way they can be used under NT
+environment.Packages 6.0.2 and above are provided along with project files
+that are set upbeforehand so that static libraries can be immediately
+created under the Microsoft Visual C++ environment which almost all the
+Windows developers use. Chances are they can be used under the environment
+of other compilers.
+
+  1. Getting qDecoder Package: Refer to Getting qDecoder Package.
+
+  2. Unpacking qDecoder Package: Unzip the package in a specific directory
+     using a decompression program. (e.g. WinZip)
+
+  3. Compile:
+       1. Open win32/qDecoder.dsw through the "File -> Open Workspace"
+          menu.
+       2. Create libraries through the "Build -> Build qDecoder.lib" menu.
+
+               ------Configuration: qDecoder - Win32 Release------
+               Compiling...
+               qArg.c
+               qAwk.c
+               .
+               .
+               (skip)
+               .
+               .
+               qTime.c
+               qValid.c
+               Creating library...
+
+               qDecoder.lib - 0 error(s), 0 warning(s)
+
+          NOTE) Since compiled library files for Win32 use already exist as
+          win32/Release/qDecoder.lib of the package, you may omit this
+          procedure and use the pertinent library files. At the same time,
+          you can acquire a ready compiled package from
+          ftp://ftp.qDecoder.org/pub/qDecoder/precompiled/Win32/.
+
+  4. Install: Respectively copy the src/qDecoder.h header file and the
+     created win32/Release/qDecoder.lib in a specific directory, in the
+     basic header of Visual C++, or in a library directory. (If they are
+     copied in the primary directory, there is no need to additionally
+     designate the path when using headers and libraries.)
+     ex) C:\Program Files\Microsoft Visual Studio\VC98\Lib\qDecoder.lib
+     ex) C:\Program Files\Microsoft Visual Studio\VC98\Include\qDecoder.h
+
+  5. Usages:
+       1. Insert #include or #include "...PATH...\qDecoder.h" in the source
+          file.
+       2. Add qDecoder.lib to ''Project -> Setting -> Link ->
+          Object/library modules'. (Specify the path when not installed on
+          the primary library directory.)
+
+  6. Test:
+       1. Create ``File -> New -> Win32 Console Application''.
+       2. Insert examples/fetch.c through ``FileView -> Source Files -> Add
+          Files to Folder''.
+       3. Add qDecoder.lib to ``Project -> Setting -> Link ->
+          Object/library modules''.
+       4. Compile ``Build -> Build PRJ_NAME.exe'' and create the execution
+          file.
+       5. Copy PRJ_NAME.exe in the CGI executable directory of the local
+          web server (IIS). And then, check the operation through the
+          browser. http://localhost/...PATH.../PRJ_NAME.exe?query=OK
+          [Pic: Win32 Test Step 1] [Pic: Win32 Test Step 2]
+
+          [Pic: Win32 Test Step 3] [Pic: Win32 Test Step 4]
+
+          [Pic: Win32 Test Step 5]
+
+  ------------------------------------------------------------------------
+                          [The qDecoder Project]
