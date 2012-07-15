@@ -1,0 +1,32 @@
+Index: block.c
+===================================================================
+--- block.c	(revision 301995)
++++ block.c	(working copy)
+@@ -38,6 +38,7 @@
+ #define DVDPLAYER_LOCK "/var/lock/.DvdPlayer"
+ #define HOTPLUG_CONFIG_FILE "/var/lock/hotplug/config"
+ #define HOTPLUG_MOUNT_TMP "/var/lock/hotplug/mount_tmp"
++#define HOTPLUG_MOUNT_TMP_REMOUNT "/tmp/lock/hotplug/mount_tmp"
+ #define HOTPLUG_CONVERT_TMP "/var/lock/hotplug/convert_tmp"
+ //#define HOTPLUG_RENAME_TMP "/var/lock/hotplug/rename_tmp"
+ #define BLOCK_ADD_SIGNAL_NUMBER 48
+@@ -703,7 +703,7 @@
+ 			}
+ #endif
+ 		}else{
+-			sprintf(command, "mount -t ufsd -o ro -o nls=utf8 -o umask=0 %s %s/.%s", name, HOTPLUG_MOUNT_TMP, ptr);
++			sprintf(command, "mount -t ufsd -o force,rw -o nls=utf8 -o umask=0 %s %s/.%s", name, HOTPLUG_MOUNT_TMP, ptr);
+ 			if((ret=do_command(command, 1, ptr)) == -1) {
+ 				printf("[%d]Hotplug: Mount \"%s\" fail.\n", __LINE__, ptr);
+ 				label_num = add_partition(ptr, name, disk_name, 0);
+@@ -764,6 +764,10 @@
+ #endif /* TRY_MOUNT_MAC_HFS_HFSPLUS */
+ 					}
+ 				}
++			} else {
++				sprintf(command, "mount -o remount,ro %s/.%s", HOTPLUG_MOUNT_TMP_REMOUNT, ptr);
++				printf("command: %s", command);
++				ret=do_command(command, 1, ptr);
+ 			}
+ 		}
+ 	}

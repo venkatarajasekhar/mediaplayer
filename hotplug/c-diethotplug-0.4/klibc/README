@@ -1,0 +1,26 @@
+This is the start of the klibc project.
+
+Initially it is based on dietLibc <http://www.fefe.de/dietlibc/> but will
+probably grow to look quite different from that package.
+
+Goals:
+  To provide a small libc that can be used to build userspace binaries that
+  will run in the initramfs portion of the kernel boot process.
+
+
+Only library calls that are _needed_ will be added to klibc.  Right now only the 
+calls needed to build and run dietHotplug are present.  Any functions that 
+are must have a real need (i.e. some program needs them.)  We aren't going for
+POSIX compliance here.
+
+Right now a static library, klibc.a will be built.  If a dynamic library is
+found to be needed that functionality will be added.
+
+
+For this first release, I quickly hacked up what I had done for the dietHotplug
+project.  It probably does not build on other architectures, and is probably
+missing some functions that you want/need.  Please let me know any problems
+that you find, and patches are gladly accepted.
+
+greg k-h
+greg@kroah.com

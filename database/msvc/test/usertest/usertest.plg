@@ -1,0 +1,121 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: mklib - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\fan\LOCALS~1\Temp\RSP130.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /I "../../../../Include" /I "../../../../../Include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"Debug/mklib.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\common\src\carray.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\datadriver.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\datafile\src\datafile.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\datafile\src\dfhandlearray.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\ebarrays.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\ebase.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\ebasedef.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\eberror.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\ebglobal.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\eblock.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\ebtypedkey.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\hashtable.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\indexdrivers\idxint32.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\indexdriver.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\datadrivers\int32.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\datadrivers\raw.cpp"
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\src\record.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\fan\LOCALS~1\Temp\RSP130.tmp" 
+Creating temporary file "C:\DOCUME~1\fan\LOCALS~1\Temp\RSP131.tmp" with contents
+[
+/nologo /out:"Debug\mklib.lib" 
+".\Debug\carray.obj"
+".\Debug\datadriver.obj"
+".\Debug\datafile.obj"
+".\Debug\dfhandlearray.obj"
+".\Debug\ebarrays.obj"
+".\Debug\ebase.obj"
+".\Debug\ebasedef.obj"
+".\Debug\eberror.obj"
+".\Debug\ebglobal.obj"
+".\Debug\eblock.obj"
+".\Debug\ebtypedkey.obj"
+".\Debug\hashtable.obj"
+".\Debug\idxint32.obj"
+".\Debug\indexdriver.obj"
+".\Debug\int32.obj"
+".\Debug\raw.obj"
+".\Debug\record.obj"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\fan\LOCALS~1\Temp\RSP131.tmp"
+<h3>Output Window</h3>
+Compiling...
+carray.cpp
+ASSERT() is enabled for Win32 Debug configuration
+datadriver.cpp
+ASSERT() is enabled for Win32 Debug configuration
+datafile.cpp
+ASSERT() is enabled for Win32 Debug configuration
+dfhandlearray.cpp
+ASSERT() is enabled for Win32 Debug configuration
+ebarrays.cpp
+ASSERT() is enabled for Win32 Debug configuration
+ebase.cpp
+ASSERT() is enabled for Win32 Debug configuration
+ebasedef.cpp
+ASSERT() is enabled for Win32 Debug configuration
+eberror.cpp
+ASSERT() is enabled for Win32 Debug configuration
+ebglobal.cpp
+ASSERT() is enabled for Win32 Debug configuration
+eblock.cpp
+ASSERT() is enabled for Win32 Debug configuration
+ebtypedkey.cpp
+ASSERT() is enabled for Win32 Debug configuration
+hashtable.cpp
+ASSERT() is enabled for Win32 Debug configuration
+idxint32.cpp
+ASSERT() is enabled for Win32 Debug configuration
+indexdriver.cpp
+ASSERT() is enabled for Win32 Debug configuration
+int32.cpp
+ASSERT() is enabled for Win32 Debug configuration
+raw.cpp
+record.cpp
+ASSERT() is enabled for Win32 Debug configuration
+Creating library...
+<h3>
+--------------------Configuration: usertest - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\fan\LOCALS~1\Temp\RSP132.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /I "../../../../Include" /I "../../../../../Include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR"Debug/" /Fp"Debug/usertest.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\svn-col-DVR\venus\software\system\src\Utility\database\test\usertest.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\fan\LOCALS~1\Temp\RSP132.tmp" 
+Creating temporary file "C:\DOCUME~1\fan\LOCALS~1\Temp\RSP133.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/usertest.pdb" /debug /machine:I386 /out:"Debug/usertest.exe" /pdbtype:sept 
+".\Debug\usertest.obj"
+"\svn-col-DVR\venus\software\system\src\Utility\database\msvc\mklib\Debug\mklib.lib"
+]
+Creating command line "link.exe @C:\DOCUME~1\fan\LOCALS~1\Temp\RSP133.tmp"
+<h3>Output Window</h3>
+Compiling...
+usertest.cpp
+ASSERT() is enabled for Win32 Debug configuration
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/usertest.bsc"  ".\Debug\usertest.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+usertest.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

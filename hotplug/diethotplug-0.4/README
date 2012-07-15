@@ -1,0 +1,39 @@
+A tiny binary version of /sbin/hotplug
+
+Author:	Greg Kroah-Hartman <greg@kroah.com>
+
+--------------------------------
+
+Q: Why, what's wrong with the current linux-hotplug bash scripts?
+
+A: Nothing.  This program is not a replacement for those scripts.  They
+   work quite well in a general purpose environment.  This program is
+   useful for systems that do not have their kernel changed on them,
+   and have space requirements.  For instance, the upcoming 2.5 kernel
+   initrd method, or embedded systems.
+
+Q: What's with the dietlibc code?
+
+A: The library files needed to build the hotplug program are now
+   included in the release.  This removes the external dependancy on
+   dietlibc, and allows everyone to build the smallest possible version
+   of hotplug.
+
+How to build:
+--------------
+
+	make KERNEL_INCLUDE_DIR=<where your kernel include dir is>
+
+This program builds in the modules.pcimap and modules.usbmap from the
+kernel version that you tell it to.  So it needs to know where the
+kernel source tree is.
+
+Useful things you can do:
+-------------------------
+
+To enable debugging so you can see what is going on in the syslog
+uncomment the comment in the line:
+#DEBUG = y
+in the Makefile
+
+

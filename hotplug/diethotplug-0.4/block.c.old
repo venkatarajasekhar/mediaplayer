@@ -1,0 +1,242 @@
+/*
+ * block.c
+ *
+ * The block functions
+ *
+ * Copyright (C) 2001 Greg Kroah-Hartman <greg@kroah.com>
+ *
+ *	This program is free software; you can redistribute it and/or modify it
+ *	under the terms of the GNU General Public License as published by the
+ *	Free Software Foundation version 2 of the License.
+ * 
+ *	This program is distributed in the hope that it will be useful, but
+ *	WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *	General Public License for more details.
+ * 
+ *	You should have received a copy of the GNU General Public License along
+ *	with this program; if not, write to the Free Software Foundation, Inc.,
+ *	675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ */
+
+#include <stddef.h>	/* for NULL */
+#include <stdlib.h>	/* for getenv() */
+#include <string.h>	/* for getenv() */
+#include <stdio.h>	/* for getenv() */
+#include <errno.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "hotplug.h"
+
+#define DVDPLAYER_LOCK "/var/lock/.DvdPlayer"
+#define HOTPLUG_CONFIG_FILE "/var/lock/hotplug/config"
+#define HOTPLUG_MOUNT_TMP "/var/lock/hotplug/mount_tmp"
+#define ADD_SIGNAL_NUMBER 48
+#define REMOVE_SIGNAL_NUMBER 49
+#define COMMAND_TRY 4			// the number of mount try
+#define UMOUNT_COMMAND_TRY 40		// the number of umount try
+
+//#define NO_DEVICE_FILESYSTEM		// No use device filesystem and the device file path would be like this: /dev/sda1
+
+static int scsi_block_device_name_translating(char *name, int len)
+{
+	char *devpath;
+	char num[4];
+	void *ptr1, *ptr2, *ptr3, *ptr4;
+	int ret;
+
+	if(len <200)
+		return -1;			// Too dangerous
+	devpath = getenv ("DEVPATH");
+// Some usb disk has no partition
+//	num[0] = devpath[strlen(devpath)-1];
+//	if(num[0]<0x30 || num[0]>0x39)		// "/block/sda/sda1" is what we want to process, whereas "/block/sda" isn't.
+//		return 1;
+	if(!(ptr3 = strrchr(devpath, '/')))
+		return -1;
+	strcpy(name, "/sys");
+	if(strlen(ptr3) > 4)
+		strncat(name, devpath, (unsigned int)ptr3+1-(unsigned int)devpath);
+	else {
+		strcat(name, devpath);
+		strcat(name, "/");
+	}
+	strcat(name, "device");			// "/sys/block/sda/device" links to, for example, "../../devices/platform/ehci_hcd/usb1/1-1/1-1:1.0/host0/target0:0:0/0:0:0:0". When there are 4 hubs connected in a string, it will be a very long string.
+	ret = readlink(name, name, len-1);
+	if(ret == -1)
+		return -1;
+	else
+		name[ret] = 0;
+	if(!(ptr1 = strstr(name, "host")))	// "host?". '?' represents a number.
+		return -1;
+	(unsigned int)ptr1 += 4;
+	if(!(ptr2 = strchr(ptr1, '/')))
+		return -1;
+	if(ptr1 >= ptr2 || ptr1+3 < ptr2)
+		return -1;
+	strncpy(num, ptr1, (unsigned int)ptr2-(unsigned int)ptr1);
+	num[(unsigned int)ptr2-(unsigned int)ptr1] = 0;
+	ptr4 = strrchr(name, ':');		// It seems that the last number of "target0:0:0/0:0:0:0" denotes lun. A card reader may have many luns for slots.
+	// In the case of "/block/sda/sda1", ptr3 represents "/sda1"
+	if(strlen(ptr3) > 4)			// ex. sda1
+		sprintf(name, "/dev/scsi/host%s/bus0/target0/lun%s/part%s", num, (char*)(ptr4+1), (char *)(ptr3+4));
+	else					// ex. sda
+		sprintf(name, "/dev/scsi/host%s/bus0/target0/lun%s/disc", num, (char*)(ptr4+1));
+
+	return 0;
+}
+
+int do_command(char *command, int count)
+{
+	int i, ret=1;
+	char log[512];
+	
+	for(i=0;i<count;i++) {
+		ret=system(command);
+		if(!WEXITSTATUS(ret))
+			break;
+		usleep(500000);
+	}
+
+	sprintf(log, "echo \"Command: %s\tret: %d\" >> /tmp/hotplug_log", command, WEXITSTATUS(ret));
+	system(log);
+	
+	if(ret == -1)			// "ret == -1" means "system" command errors, e.g., fork problem
+		return ret;
+	else
+		return WEXITSTATUS(ret);
+}
+
+void do_create_empty_file(const char *name)
+{
+	int fd;
+	if(name) {
+		fd = creat(name, 0644);
+		if(fd != -1)
+			close(fd);
+	}
+}
+
+static int block_add (void)
+{
+	char name[256], command[280];
+	int ret;
+	char *devpath;
+	char *ptr;
+	
+	devpath = getenv ("DEVPATH");
+	if(!(ptr = strrchr(devpath, '/')))	// "/block/sda/sda1"
+		return 1;
+	ptr+=1;
+	while(parse_config(HOTPLUG_CONFIG_FILE, "delay", ptr) > 0) sleep(1);
+#ifdef NO_DEVICE_FILESYSTEM
+	sprintf(name, "/dev/%s", ptr);
+#else
+	ret = scsi_block_device_name_translating(name, 256);
+	if(ret)
+		return ret;
+#endif
+	sprintf(command, "mkdir -p %s/.%s", HOTPLUG_MOUNT_TMP, ptr);
+	if(system(command) == -1)
+		return 1;
+	sprintf(command, "mount -t vfat -o ro -o utf8 %s %s/.%s", name, HOTPLUG_MOUNT_TMP, ptr);
+	if((ret=do_command(command, COMMAND_TRY)) == -1)
+		return 1;
+	else if(ret) {
+		sprintf(command, "mount -t ntfs -o ro -o nls=utf8 %s %s/.%s", name, HOTPLUG_MOUNT_TMP, ptr);
+// Why we still need to retry this command? Because I found that sometimes the first "mount ntfs" will fail alought there is already delay when mounting VFAT.
+// I think this is because when "mount sda" and "mount sda1" happen at the same time, it will have problem.
+		if((ret=do_command(command, COMMAND_TRY)) == -1)
+			return 1;
+		else if(ret) {
+			sprintf(command, "mount -t ext3 -o ro %s %s/.%s", name, HOTPLUG_MOUNT_TMP, ptr);
+			if(do_command(command, COMMAND_TRY))
+				return 1;
+		}
+	}
+
+//	if(false == 1) {
+//		sprintf(command, "rmdir %s/.%s", HOTPLUG_MOUNT_TMP, ptr);
+//		system(command);
+//		return 1;
+//	}
+
+	sprintf(command, "mkdir -p /mnt/usbmounts/%s", ptr);
+	if(system(command) == -1)
+		return 1;
+	sprintf(command, "mount --move %s/.%s /mnt/usbmounts/%s", HOTPLUG_MOUNT_TMP, ptr, ptr);
+	if(system(command)) {
+		sprintf(command, "rmdir /mnt/usbmounts/%s", ptr);
+		system(command);
+		return 1;
+	}
+
+	sprintf(command, "rm -rf %s/.d_%s", HOTPLUG_MOUNT_TMP, ptr);	// This lock file may be left for a long time.
+	system(command);
+
+	signal_pid(DVDPLAYER_LOCK, ADD_SIGNAL_NUMBER);
+	return 0;
+}
+
+
+static int block_remove (void)
+{
+	char command[120], name[30];
+	char *devpath;
+	char *ptr;
+	struct stat st;
+	int ret=0;
+
+	devpath = getenv ("DEVPATH");
+	if(!(ptr = strrchr(devpath, '/')))	// "/block/sda/sda1"
+		return 1;
+	
+	// Check if the directory exists.
+	sprintf(name, "/mnt/usbmounts%s", ptr);
+	stat(name, &st);
+	if(!S_ISDIR(st.st_mode))
+		return 1;
+
+	// Lock file to notify that the corresponding directory cannot be accessed
+	sprintf(name, "%s/.d_%s", HOTPLUG_MOUNT_TMP, ptr+1);
+	do_create_empty_file(name);
+
+	sprintf(command, "umount -f /mnt/usbmounts%s", ptr);
+	if(do_command(command, UMOUNT_COMMAND_TRY))
+		ret = 1;
+	else {
+		sprintf(command, "rmdir /mnt/usbmounts%s", ptr);
+		system(command);
+		sprintf(command, "rm -rf %s", name);
+		system(command);
+	}
+
+	signal_pid(DVDPLAYER_LOCK, REMOVE_SIGNAL_NUMBER);
+
+	return ret;
+}
+
+
+static struct subsystem block_subsystem[] = {
+	{ ADD_STRING, block_add },
+	{ REMOVE_STRING, block_remove },
+	{ NULL, NULL }
+};
+
+
+int block_handler (void)
+{
+	char * action;
+
+	action = getenv ("ACTION");
+	dbg ("action = %s", action);
+	if (action == NULL) {
+		dbg ("missing ACTION environment variable, aborting.");
+		return 1;
+	}
+
+	return call_subsystem (action, block_subsystem);
+}
+
+

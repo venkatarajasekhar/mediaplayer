@@ -1,0 +1,11 @@
+0.4 - patch for the Makefile and dietlibc stuff from Erik Andersen.
+    - renamed the dietlibc subdirectory to klibc
+    - synced with my previous klibc changes
+    - cleaned up remaining compiler warnings.
+    - further Makefile tweaks.
+    - klibc tweaks, now binary is even smaller.
+0.3 - added support for ieee1394 devices
+    - fixed logic to load all modules that match the given signatures.
+    - moved dietlibc code into the project to make builds easier.
+0.2 - added support for pci hotplug
+0.1 - initial release
